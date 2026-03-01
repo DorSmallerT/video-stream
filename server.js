@@ -31,4 +31,5 @@ app.get("/v/:file", (req, res) => {
   fs.createReadStream(filePath).pipe(res)
 })
 
-app.listen(3000, () => console.log("Server running"))
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => console.log("Server running"))
