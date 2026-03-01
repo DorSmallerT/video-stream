@@ -9,7 +9,8 @@ const SECRET = "super-secret-123"
 
 app.get("/generate/:file", (req, res) => {
   const fileName = req.params.file
-  const expires = Date.now() + 3600000
+  const ONE_WEEK = 7 * 24 * 60 * 60 * 1000; // 604800000 ms
+  const expires = Date.now() + ONE_WEEK;
 
   const sig = crypto
     .createHmac("sha256", SECRET)
