@@ -7,6 +7,20 @@ const app = express()
 
 const SECRET = "super-secret-123"
 
+app.get("/generate/:file", (req, res) => {
+  const fileName = req.params.file
+  const expires = Date.now() + 3600000
+
+  const sig = crypto
+    .createHmac("sha256", SECRET)
+    .update(fileName + expires)
+    .digest("base64")
+
+  res.send(
+    `https://video-stream-8er6.onrender.com/v/${fileName}?expires=${expires}&sig=${sig}`
+  )
+})
+
 app.get("/v/:file", (req, res) => {
   const fileName = req.params.file
   const { expires, sig } = req.query
