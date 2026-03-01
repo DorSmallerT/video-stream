@@ -14,7 +14,7 @@ app.get("/generate/:file", (req, res) => {
   const sig = crypto
     .createHmac("sha256", SECRET)
     .update(fileName + expires)
-    .digest("base64")
+    .digest("base64url")
 
   res.send(
     `https://video-stream-8er6.onrender.com/v/${fileName}?expires=${expires}&sig=${sig}`
@@ -31,7 +31,7 @@ app.get("/v/:file", (req, res) => {
   const expectedSig = crypto
     .createHmac("sha256", SECRET)
     .update(fileName + expires)
-    .digest("base64")
+    .digest("base64url")
 
   if (sig !== expectedSig) return res.sendStatus(403)
 
